@@ -6,3 +6,4 @@ npm-debug.log
 .lone/
 coverage/
 .mongodb/
+.vscode/
