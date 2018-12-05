@@ -23,6 +23,9 @@
       "coverage/{*,**/*}"
     ]
   },
+  "engines": {
+    "node": ">=4"
+  },
   "dependency-check": {
     "entries": [
       "mocha/after.js",
