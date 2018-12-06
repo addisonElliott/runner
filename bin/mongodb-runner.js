@@ -20,11 +20,11 @@ var debug = require('debug')('mongodb-runner:bin:mongodb-runner.js');
 args.action = args.action || args._[0] || 'start';
 
 if (args.help || args.h) {
-  console.error(usage);
+  console.log(usage);
   process.exit(1);
 }
 if (args.version) {
-  console.error(pkg.version);
+  console.log(pkg.version);
   process.exit(1);
 }
 
@@ -51,6 +51,12 @@ run(args, function(err) {
     process.exit(1);
     return;
   }
+
+  if (err)
+  {
+    console.log('test');
+  }
+
   debug('ran action `%s` successfully', args.action);
   process.exit(0);
 });
