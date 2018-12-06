@@ -58,7 +58,7 @@
     "which": "^1.2.4"
   },
   "devDependencies": {
-    "eslint-config-mongodb-js": "^3.0.0",
+    "eslint-config-mongodb-js": "^3.0.1",
     "github-release": "^0.2.0",
     "kill-mongodb": "^1.0.1",
     "lone": "^0.5.0",
