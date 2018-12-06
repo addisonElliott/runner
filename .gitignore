@@ -8,3 +8,6 @@ coverage/
 .mongodb/
 
 package-lock.json
+
+# Ignore VS Code project specific
+.vscode
