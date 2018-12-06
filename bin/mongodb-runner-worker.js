@@ -1,9 +1,14 @@
 #!/usr/bin/env node
-var debug = require('debug')('mongodb-runner:bin:mongodb-runner-worker.js');
-var args = require('minimist')(process.argv.slice(2), {});
-var startWorker = require('../lib/worker');
+const debug = require('debug')('mongodb-runner:bin:mongodb-runner-worker.js');
+const args = require('minimist')(process.argv.slice(2), {});
+const startWorker = require('../lib/worker');
 
 debug('Starting...');
+
+startWorker(args).then(function() {
+
+});
+
 startWorker(args, function(err, opts) {
   /* eslint no-console:0 */
   if (err) {
