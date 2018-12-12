@@ -2,7 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
-const clui = require('clui');
+const ora = require('ora');
 
 // Process arguments, specifying that debug option is a boolean
 var args = require('minimist')(process.argv.slice(2), {
@@ -43,29 +43,30 @@ if (args.version) {
 
 debug('Running action `%s` with args', args.action, args);
 
-// Display spinner if not running this in continuous integration
+// Display spinner if not running this in continuous integration or if debugging
+// When debugging, the console logging conflicts with the debugging and looks ugly
 var spinner = null;
-if (!process.env.CI) {
+if (!process.env.CI && !process.env.DEBUG) {
   if (args.action === 'start') {
-    spinner = new clui.Spinner('Starting a MongoDB deployment to test against...');
-    spinner.start();
+    spinner = ora({
+      'spinner': 'arc',
+      'text': 'Starting a MongoDB deployment to test against...'
+    }).start();
   } else if (args.action === 'stop') {
-    spinner = new clui.Spinner('Stopping any local MongoDB deployments...');
-    spinner.start();
+    spinner = ora({
+      'spinner': 'arc',
+      'text': 'Stopping any local MongoDB deployments...'
+    }).start();
   }
 }
 
-setTimeout(function() {
-  spinner.stop();
+// Run with given arguments
+run(args).then(function() {
+  spinner.succeed();
   debug('Ran action `%s` successfully', args.action);
   process.exit(0);
-}, 2000);
-
-// // Run with given arguments
-// run(args).then(function() {
-//   debug('Ran action `%s` successfully', args.action);
-//   process.exit(0);
-// }).catch(function(err) {
-//   console.error(err);
-//   process.exit(1);
-// });
+}).catch(function(err) {
+  spinner.fail();
+  console.error(err);
+  process.exit(1);
+});
