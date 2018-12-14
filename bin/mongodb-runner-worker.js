@@ -2,6 +2,7 @@
 const debug = require('debug')('mongodb-runner:bin:mongodb-runner-worker.js');
 const args = require('minimist')(process.argv.slice(2), {});
 const startWorker = require('../lib/worker');
+const serializeError = require('serialize-error');
 
 debug('Starting...');
 
@@ -10,7 +11,7 @@ startWorker(args).then(function() {
 }).catch(function(err) {
   process.send({
     event: 'error',
-    err: JSON.stringify(err)
+    err: JSON.stringify(serializeError(err))
   });
 });
 
