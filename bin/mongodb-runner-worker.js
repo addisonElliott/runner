@@ -8,6 +8,11 @@ debug('Starting...');
 
 startWorker(args).then(function() {
   debug('MongoDB process spawned successfully!');
+
+  process.on('SIGTERM', function() {
+    debug('Stopping `%s` server, received SIGTERM', args.name);
+    args.server.stop();
+  });
 }).catch(function(err) {
   process.send({
     event: 'error',
