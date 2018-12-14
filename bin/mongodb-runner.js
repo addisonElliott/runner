@@ -11,7 +11,7 @@ var args = require('minimist')(process.argv.slice(2), {
 
 // Set debug env variable so debug commands are printed out
 if (args.debug) {
-  process.env.DEBUG = 'mongodb-runner*';
+  process.env.DEBUG = '*';
 }
 
 // Debug must come after DEBUG env variable is set
