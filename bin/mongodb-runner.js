@@ -62,11 +62,19 @@ if (!process.env.CI && !process.env.DEBUG) {
 
 // Run with given arguments
 run(args).then(function() {
-  spinner.succeed();
+  // Displays checkmark where spinner used to be
+  if (spinner) {
+    spinner.succeed();
+  }
+
   debug('Ran action `%s` successfully', args.action);
   process.exit(0);
 }).catch(function(err) {
-  spinner.fail();
+  // Displays red X where spinner used to be
+  if (spinner) {
+    spinner.fail();
+  }
+
   console.error(err);
   process.exit(1);
 });
